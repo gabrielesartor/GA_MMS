@@ -13,6 +13,10 @@ public class Population
   private int       popsize;  // The number of individuals
   private Individual pop[];   // The vector of individuals
 
+  /* Number of machine */
+  private int M;
+
+  /* It is the number of our task */
   private int chrom_length;   // The length of the chromosomes
 
   // STATISTICS
@@ -25,13 +29,19 @@ public class Population
 
 
 
-  public Population(int ps, int chroml)
+  public Population(int ps, int chroml, int machinesNum)
   {
+    /* number of population */
     popsize      = ps;
+    /* liste of our population */
     pop          = new Individual[popsize];
+    /* number of task */
     chrom_length = chroml;
+    /* number of machines */
+    M = machinesNum;
 
-    for(int i=0;i<popsize;i++)  pop[i] = new Individual(chroml);
+    /* Create a number "popsize" of random solution on "machinesNum" machines */
+    for(int i=0;i<popsize;i++)  pop[i] = new Individual(chroml,machinesNum);
 
     // Initialize statistics
     bestp = 0;     worstp = 0;
@@ -43,12 +53,17 @@ public class Population
     return popsize;
   }
 
+  public int get_M()
+  {
+    return M;
+  }
+
   public int worst_pos()
   {
     return worstp;
   }
 
-
+/* return the value of the individu at the index "index" if it exists */
   public Individual get_ith(int index)throws Exception
   {
     if ((index<popsize) && (index>=0))
@@ -57,6 +72,7 @@ public class Population
     throw new Exception("Index out of range when getting a copy of an individual");
   }
 
+/* Change the individu of index "index" */
   public void set_ith(int index, Individual indiv)  throws Exception
   {
     if ((index<popsize) && (index>=0))
@@ -68,11 +84,14 @@ public class Population
     compute_stats();
   }
 
+/* Can change de fitness of one individu it maybe uses after a crossover or a mutation */
   public void set_fitness( int index, double fitness ) throws Exception
   {
     pop[index].set_fitness(fitness);
   }
 
+/* This method compute the stats about our population maybe we use that after an iteration to know
+if we have to continue one more iteration if we increase the solution */
   public void compute_stats()
   {
     double f, total;

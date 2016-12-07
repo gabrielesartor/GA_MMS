@@ -11,19 +11,34 @@ import java.util.Random;
 
 public class Algorithm
 {
+  /* Here is our number of task */
   private  int          chrom_length; // Alleles per chromosome
+  /* for us this one is maybe the same than the previous */
   private  int          gene_number;  // Number of genes in every chromosome
+  /* I do not see what it is for */
   private  int          gene_length;  // Number of bits per gene
+
+  /* Number of machines */
+  private  int          machinesNum;
+
   private  int          popsize;      // Number of individuals in the population
+
+  /* pc is between  0.7 and 0.9 we have to laucnh 50 time each and make test to see the best result */
+  /* for pm is the same than pc jsut above */
   private  double pc, pm;      // Probability of applying crossover and mutation
+
   private  Problem       problem;     // The problem being solved
   private  Population    pop;         // The population
+
+  /**/
   private  static Random r;           // Source for random values in this class
+
+  /* don't see what is it */
   private  Individual aux_indiv;  // Internal auxiliar individual being computed
 
 
   // CONSTRUCTOR
-  public Algorithm(Problem p, int popsize, int gn, int gl, double pc, double pm)
+  public Algorithm(Problem p, int popsize, int gn, int gl, double pc, double pm, int m)
   throws Exception
   {
     this.gene_number   = gn;
@@ -32,10 +47,11 @@ public class Algorithm
     this.popsize       = popsize;
     this.pc            = pc;
     this.pm            = pm;
-    this.problem       = p;                     
-    this.pop = new Population(popsize,chrom_length);// Create initial population
+    this.problem       = p;
+    this.machinesNum   = m;
+    this.pop = new Population(popsize,chrom_length,m);// Create initial population
     this.r             = new Random();
-    this.aux_indiv     = new Individual(chrom_length);
+    this.aux_indiv     = new Individual(chrom_length,m);
 
     for(int i=0;i<popsize;i++)
     pop.set_fitness(i,problem.evaluateStep(pop.get_ith(i)));
@@ -43,36 +59,47 @@ public class Algorithm
   }
 
   // BINARY TOURNAMENT
+  /* with method choose the individual with the greatest fitness */
   public Individual select_tournament() throws Exception
   {
     int p1, p2;
 
     p1 = (int)(r.nextDouble()*
                (double)popsize + 0.5); // Round and then trunc to int
-    
+
+    /* to be sure we will not have ungound value */
     if(p1>popsize-1) p1=popsize-1;
+
     do
     {  p2 = (int)(r.nextDouble()*
                   (double)popsize + 0.5);  // Round and then trunc to int
+      /* to be sure we will not have ungound value */
       if(p2>popsize-1) p2=popsize-1;
     }
+
     while (p1==p2);
+    /* We return the one with the greatest fitness*/
     if (pop.get_ith(p1).get_fitness()>pop.get_ith(p2).get_fitness())
     return pop.get_ith(p1);
     else
     return pop.get_ith(p2);
   }
 
-  // SINGLE POINT CROSSOVER - ONLY ONE CHILD IS CREATED (RANDOMLY DISCARD 
+  /* maybe we can make an update and keep the one with more fitness */
+  // SINGLE POINT CROSSOVER - ONLY ONE CHILD IS CREATED (RANDOMLY DISCARD
   // DE OTHER)
+  /* I don't find the signification of SPX  */
   public Individual SPX (Individual p1, Individual p2)
   {
     int       rand;
 
     rand = (int)(r.nextDouble()*
                  (double)chrom_length-1+0.5); // From 0 to L-1 rounded
+
+    /* to be sure we will not have ungound value */
     if(rand>chrom_length-1) rand=chrom_length-1;
 
+    /* improvement we can return the one with more fitnes but it is maybe part of the algorithm */
     if(r.nextDouble()>pc)  // If no crossover then randomly returns one parent
     return r.nextDouble()>0.5?p1:p2;
 
@@ -91,10 +118,10 @@ public class Algorithm
   }
 
 
-  // MUTATE A BINARY CHROMOSOME
+  // MUTATE A int CHROMOSOME
   public Individual mutate(Individual p1)
   {
-    byte alelle=0;
+    int alelle=0;
     Random r = new Random();
 
     aux_indiv.assign(p1);
@@ -102,10 +129,7 @@ public class Algorithm
     for(int i=0; i<chrom_length; i++)
     if (r.nextDouble()<=pm)  // Check mutation bit by bit...
     {
-      if(aux_indiv.get_allele(i)==1)
-      aux_indiv.set_allele(i,(byte)0);
-      else
-      aux_indiv.set_allele(i,(byte)1);
+      aux_indiv.set_allele(i,r.nextInt(machinesNum));
     }
 
     return aux_indiv;
@@ -156,4 +180,3 @@ public double get_BESTF()  { return pop.get_BESTF();  }
   }
 }
 // END OF CLASS: Algorithm
-

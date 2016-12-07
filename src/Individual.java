@@ -56,11 +56,13 @@ public class Individual implements Serializable
      chrom.set_allele(index,value);
   }
 
-  public byte get_allele(int index)
+/* we will use that for the cross over and for the mutation */
+  public int get_allele(int index)
   {
      return chrom.get_allele(index);
   }
 
+/* this method should do the crossover */
   private void copy(Chromosome source, Chromosome destination)
   {
      for (int i=0; i<L; i++)
@@ -69,6 +71,7 @@ public class Individual implements Serializable
      }
   }
 
+/* I don't know what this method is for the moment */
   public void assign(Individual I)
   {
     copy(I.get_chromosome(),chrom);

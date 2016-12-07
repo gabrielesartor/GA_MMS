@@ -13,25 +13,32 @@ public class Individual implements Serializable
 {
   private Chromosome chrom;
   private int        L;
+  private int        M;
   private double     fitness;
 
-  public Individual(int L)
+  public Individual(int L, int M)
   {
-     chrom   = new Chromosome(L);
+     chrom   = new Chromosome(L, M);
      fitness = 0.0;
      this.L  = L;
+     this.M  = M;
   }
 
   public void print()
   {
      chrom.print();
      System.out.print("   ");
-     System.out.println(fitness);
+     System.out.println(fitness); /* How to define fitness */
   }
 
   public int get_length()
   {
      return L;
+  }
+
+  public int get_numOfMachines()
+  {
+     return M;
   }
 
   public void set_fitness(double fit)
@@ -44,7 +51,7 @@ public class Individual implements Serializable
      return fitness;
   }
 
-  public void set_allele(int index, byte value)
+  public void set_allele(int index, int value)
   {
      chrom.set_allele(index,value);
   }

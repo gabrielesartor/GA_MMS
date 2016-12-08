@@ -101,11 +101,15 @@ if we have to continue one more iteration if we increase the solution */
     worstf = pop[0].get_fitness();     worstp = 0;
     bestf  = pop[0].get_fitness();     bestp  = 0;
 
+    /*I think it is completely the opposite
+     *We have a better fitness when we have a lower number
+     *  TO CHANGE!  <----------------------------------------------------------- 
+    */
     for(int i=0;i<popsize;i++)
     {   f = pop[i].get_fitness();
-    if(f<=worstf) {worstf = f; worstp = i;}
-    if(f>=bestf)  {bestf  = f; bestp  = i;}
-    if(f>=BESTF)  {BESTF  = f;            }
+    if(f<=bestf) {bestf = f; bestp = i;}
+    if(f>=worstf)  {worstf  = f; worstp  = i;}
+    if(f<=BESTF)  {BESTF  = f;            }
       total += f;
     }
 

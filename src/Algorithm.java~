@@ -79,7 +79,7 @@ public class Algorithm
 
     while (p1==p2);
     /* We return the one with the greatest fitness*/
-    if (pop.get_ith(p1).get_fitness()<pop.get_ith(p2).get_fitness())
+    if (pop.get_ith(p1).get_fitness()>pop.get_ith(p2).get_fitness())
     return pop.get_ith(p1);
     else
     return pop.get_ith(p2);

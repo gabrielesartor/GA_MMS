@@ -33,7 +33,7 @@ public class ReadTasks {
       String temp = line.substring(1 + (line.indexOf(":")));
       
       for (String number : temp.split(",")) {
-        //System.out.println(number.trim());
+        System.out.println(number.trim());
         matrixTasks[task][machine] = Float.parseFloat(number.trim());
         machine++;
       }

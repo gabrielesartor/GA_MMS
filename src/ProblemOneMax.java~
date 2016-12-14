@@ -33,13 +33,3 @@ public class ProblemOneMax extends Problem{
   }
 
 }
-
-/*
-
-double f = 0.0;
-     
-    for(int i=0; i<CL; i++) {
-      f += jobsMatrix[i][(indiv.get_chromosome()).get_allele(i)];
-    }
-    return f;
-*/

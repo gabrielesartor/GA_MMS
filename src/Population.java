@@ -107,9 +107,9 @@ if we have to continue one more iteration if we increase the solution */
     */
     for(int i=0;i<popsize;i++)
     {   f = pop[i].get_fitness();
-    if(f<=bestf) {bestf = f; bestp = i;}
-    if(f>=worstf)  {worstf  = f; worstp  = i;}
-    if(f<=BESTF)  {BESTF  = f;            }
+    if(f<=worstf) {worstf = f; worstp = i;}
+    if(f>=bestf)  {bestf  = f; bestp  = i;}
+    if(f>=BESTF)  {BESTF  = f;            }
       total += f;
     }
 

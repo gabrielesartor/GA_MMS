@@ -1,0 +1,18 @@
+pc
+
+0.7 0.9 
+by 0.05
+siwe of each 50
+
+
+pm
+
+just chqnge the one 
+0 to 10
+by 0.1
+size of each 50
+
+popsize
+
+200 -300 - ::: 500 :::: 600 - 1000
+by size 50 each

@@ -42,13 +42,11 @@ public abstract class Problem                    // Maximization task
     }
 
 
-    
     public double evaluateStep(Individual Indiv) {
             fitness_counter++ ;
             return Evaluate(Indiv) ;
     }
 
-    /*Create new problem file and implement this method*/
     public abstract double Evaluate(Individual Indiv) ;
 }
 // END OF CLASS: Problem

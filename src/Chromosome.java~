@@ -46,6 +46,11 @@ public class Chromosome implements Serializable
     for(int i=0; i<L; i++)
     System.out.println(alleles[i]);
   }
+  
+  public static void main(String[]args) {
+    Chromosome chrom = new Chromosome(512,2);
+    chrom.print();
+  }
 
 }
 

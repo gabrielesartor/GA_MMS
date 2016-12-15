@@ -21,9 +21,9 @@ public class testValues
   {
   
   //Changing probability of crossover
-    testSample(512,0.7,(1/512),args[0]);
+    //testSample(512,0.7,(1/512),args[0]);
     testSample(512,0.8,(1/512),args[0]);
-    testSample(512,0.9,(1/512),args[0]);
+    //testSample(512,0.9,(1/512),args[0]);
 /*    
     //Changing probability of mutation
     testSample(512,0.7,0,args[0]);
@@ -98,7 +98,7 @@ public class testValues
       }
 
       //PRINT SOLUTION
-      out.print(iteration+","+(ga.get_solution()).get_fitness()+"\n");
+      out.print(iteration+","+Math.abs((ga.get_solution()).get_fitness())+"\n");
       
 
     }

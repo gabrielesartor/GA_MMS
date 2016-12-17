@@ -19,12 +19,34 @@ public class testValues
 {
   public static void main(String args[]) throws Exception
   {
-  
+
   //Changing probability of crossover
-    //testSample(512,0.7,(1/512),args[0]);
-    testSample(512,0.8,(1/512),args[0]);
-    //testSample(512,0.9,(1/512),args[0]);
-/*    
+  double j = 0.7;
+  while( j < 0.95)
+  {
+    String file_name = "test/"+args[0]+"_"+512+"_"+j+"_"+(1/512)+".csv";
+    PrintWriter out = new PrintWriter(new FileWriter(file_name));
+    out.print("Iteration, Minimum MakeSpan\n");
+
+    for (int iteration=0; iteration<50; iteration++) {
+
+
+
+      double soluce = testSample(512,j,(1/512));
+      //PRINT SOLUTION
+      out.print(iteration+","+soluce+"\n");
+
+
+      System.out.println(iteration+","+soluce);
+    }
+    out.flush();
+    out.close();
+
+    j = j + 0.05;
+  }
+
+
+/*
     //Changing probability of mutation
     testSample(512,0.7,0,args[0]);
     testSample(512,0.7,0.01,args[0]);
@@ -37,7 +59,7 @@ public class testValues
     testSample(512,0.7,0.08,args[0]);
     testSample(512,0.7,0.09,args[0]);
     testSample(512,0.7,0.1,args[0]);
-    
+
     //Changing population
     testSample(200,0.7,(1/512),args[0]);
     testSample(300,0.7,(1/512),args[0]);
@@ -48,14 +70,11 @@ public class testValues
 */
 
   }
-  
-  
-  public static void testSample(int popsize1, double pc1, double pm1, String name_file_test) throws Exception {
-    String file_name = "test/values_test_"+popsize1+"_"+pc1+"_"+pm1+".csv";
-    
-    PrintWriter out = new PrintWriter(new FileWriter(file_name));
-    out.print("Iteration, Minimum MakeSpan\n");
-  
+
+
+  public static double testSample(int popsize1, double pc1, double pm1) throws Exception {
+
+
     // PARAMETERS MINMAKESPAN
     int numberOfMachines = 16;                        // Number of machines
     int    gn         = 512;                          // Gene number
@@ -79,12 +98,12 @@ public class testValues
     Algorithm ga;          // The ssGA being used
     ga = new Algorithm(problem, popsize, gn, gl, pc, pm, numberOfMachines);
 
-    for (int iteration=0; iteration<50; iteration++) {
+
       for (int step=0; step<MAX_ISTEPS; step++)
       {
         ga.go_one_step();
-        System.out.print(step); System.out.print("  ");
-        System.out.println(ga.get_bestf());
+        //System.out.print(step); System.out.print("  ");
+        //System.out.println(ga.get_bestf());
 
         if(     (problem.tf_known())                    &&
         (ga.get_solution()).get_fitness()>=problem.get_target_fitness()
@@ -95,16 +114,9 @@ public class testValues
           break;
         }
 
-      }
-
-      //PRINT SOLUTION
-      out.print(iteration+","+Math.abs((ga.get_solution()).get_fitness())+"\n");
-      
-
     }
-    out.flush();
-    out.close();
-      
+    return Math.abs((ga.get_solution()).get_fitness());
+
   }
 
 }

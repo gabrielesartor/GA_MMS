@@ -19,16 +19,16 @@ public class testValues
 {
   public static void main(String args[]) throws Exception
   {
-
+/*
   //Changing probability of crossover
   double j = 0.7;
-  while( j < 0.95)
+  while( j < 1.1)
   {
-    String file_name = "test/"+args[0]+"_"+512+"_"+j+"_"+(1/512)+".csv";
+    String file_name = "data_test/pcTest_"+512+"_"+j+"_"+(1/512)+".csv";
     PrintWriter out = new PrintWriter(new FileWriter(file_name));
     out.print("Iteration, Minimum MakeSpan\n");
 
-    for (int iteration=0; iteration<50; iteration++) {
+    for (int iteration=0; iteration<100; iteration++) {
 
 
 
@@ -44,32 +44,41 @@ public class testValues
 
     j = j + 0.05;
   }
-
-
-/*
-    //Changing probability of mutation
-    testSample(512,0.7,0,args[0]);
-    testSample(512,0.7,0.01,args[0]);
-    testSample(512,0.7,0.02,args[0]);
-    testSample(512,0.7,0.03,args[0]);
-    testSample(512,0.7,0.04,args[0]);
-    testSample(512,0.7,0.05,args[0]);
-    testSample(512,0.7,0.06,args[0]);
-    testSample(512,0.7,0.07,args[0]);
-    testSample(512,0.7,0.08,args[0]);
-    testSample(512,0.7,0.09,args[0]);
-    testSample(512,0.7,0.1,args[0]);
-
-    //Changing population
-    testSample(200,0.7,(1/512),args[0]);
-    testSample(300,0.7,(1/512),args[0]);
-    testSample(500,0.7,(1/512),args[0]);
-    testSample(600,0.7,(1/512),args[0]);
-    testSample(800,0.7,(1/512),args[0]);
-    testSample(1000,0.7,(1/512),args[0]);
 */
 
+
+  //Changing probability of crossover
+  double j = 1;
+
+  for(double pc=0.70; pc<0.905 ; pc += 0.1 )
+  {
+    for(int pm=0; pm<11 ; pm += 2)
+    {
+      for(int popsize=256; popsize<2049 ; popsize *= 2)
+      {
+        String file_name = "second/pmTest_"+popsize+"_"+pc+"_"+pm+".csv";
+        PrintWriter out = new PrintWriter(new FileWriter(file_name));
+        out.print("Iteration, Minimum MakeSpan\n");
+
+        for (int iteration=0; iteration<50; iteration++) {
+
+
+
+          double soluce = testSample(popsize,pc,(pm/512));
+          //PRINT SOLUTION
+          out.print(iteration+","+soluce+"\n");
+
+
+          System.out.println(iteration+","+soluce);
+        }
+        out.flush();
+        out.close();
+      }
+    }
   }
+
+
+    }
 
 
   public static double testSample(int popsize1, double pc1, double pm1) throws Exception {

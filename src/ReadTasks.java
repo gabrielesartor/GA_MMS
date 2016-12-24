@@ -8,14 +8,15 @@ import java.nio.file.*;
 
 public class ReadTasks {
   public static void main(String[]args) throws Exception {
-    matrixFromFile();
+    //main used fot testing the methods
+    matrixFromFile("u_s_hihi_512_16.txt");
   }
   
-  private static ArrayList<String> splitInLines() throws Exception {
+  private static ArrayList<String> splitInLines(String input_file) throws Exception {
     ArrayList<String> lines = new ArrayList<String>();
     int i = 0;
     
-    for (String line : Files.readAllLines(Paths.get("u_c_hihi_512_16.txt"))) {
+    for (String line : Files.readAllLines(Paths.get(input_file))) {
       lines.add(line);
       i++;
     }
@@ -43,8 +44,8 @@ public class ReadTasks {
     return matrixTasks;
   }
   
-  public static float[][] matrixFromFile() throws Exception {
-    ArrayList<String> lines = splitInLines();
+  public static float[][] matrixFromFile(String input_file) throws Exception {
+    ArrayList<String> lines = splitInLines(input_file);
     return linesToMatrix(lines);
   }
   

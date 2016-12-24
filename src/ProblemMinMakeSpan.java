@@ -4,8 +4,12 @@ public class ProblemMinMakeSpan extends Problem{
     float [][]jobsMatrix;
     
     public ProblemMinMakeSpan() {
+      throw new IllegalArgumentException("Problem in the initialization of the problem. \nDid you put the name of the input file?");
+    }
+    
+    public ProblemMinMakeSpan(String input_file) {
       try{
-        jobsMatrix = ReadTasks.matrixFromFile();
+        jobsMatrix = ReadTasks.matrixFromFile(input_file);
       }catch(Exception e){ System.out.println("Error IO"); }
     }
 

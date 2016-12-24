@@ -19,69 +19,48 @@ public class testValues
 {
   public static void main(String args[]) throws Exception
   {
-/*
-  //Changing probability of crossover
-  double j = 0.7;
-  while( j < 1.1)
-  {
-    String file_name = "data_test/pcTest_"+512+"_"+j+"_"+(1/512)+".csv";
-    PrintWriter out = new PrintWriter(new FileWriter(file_name));
-    out.print("Iteration, Minimum MakeSpan\n");
-
-    for (int iteration=0; iteration<100; iteration++) {
-
-
-
-      double soluce = testSample(512,j,(1/512));
-      //PRINT SOLUTION
-      out.print(iteration+","+soluce+"\n");
-
-
-      System.out.println(iteration+","+soluce);
+  
+    if(args.length!=1) {
+      System.out.println("Please enter the name of the input_file.");
+      return;
     }
-    out.flush();
-    out.close();
-
-    j = j + 0.05;
-  }
-*/
 
 
-  //Changing probability of crossover
-  double j = 1;
+    //Changing probability of crossover, mutation and population size
+    double j = 1;
 
-  for(double pc=0.70; pc<0.905 ; pc += 0.1 )
-  {
-    for(int pm=0; pm<11 ; pm += 2)
+    for(double pc=0.70; pc<0.905 ; pc += 0.1 )
     {
-      for(int popsize=256; popsize<2049 ; popsize *= 2)
+      for(int pm=0; pm<11 ; pm += 2)
       {
-        String file_name = "second/pmTest_"+popsize+"_"+pc+"_"+pm+".csv";
-        PrintWriter out = new PrintWriter(new FileWriter(file_name));
-        out.print("Iteration, Minimum MakeSpan\n");
+        for(int popsize=256; popsize<2049 ; popsize *= 2)
+        {
+          String file_name = "pmTest_"+popsize+"_"+pc+"_"+pm+".csv";
+          PrintWriter out = new PrintWriter(new FileWriter(file_name));
+          out.print("Iteration, Minimum MakeSpan\n");
 
-        for (int iteration=0; iteration<50; iteration++) {
-
-
-
-          double soluce = testSample(popsize,pc,(pm/512));
-          //PRINT SOLUTION
-          out.print(iteration+","+soluce+"\n");
+          for (int iteration=0; iteration<50; iteration++) {
 
 
-          System.out.println(iteration+","+soluce);
+
+            double soluce = testSample(popsize,pc,(pm/512), args[0]);
+            //PRINT SOLUTION
+            out.print(iteration+","+soluce+"\n");
+
+
+            System.out.println(iteration+","+soluce);
+          }
+          out.flush();
+          out.close();
         }
-        out.flush();
-        out.close();
       }
     }
+
+
   }
 
 
-    }
-
-
-  public static double testSample(int popsize1, double pc1, double pm1) throws Exception {
+  public static double testSample(int popsize1, double pc1, double pm1, String input_file) throws Exception {
 
 
     // PARAMETERS MINMAKESPAN
@@ -96,7 +75,7 @@ public class testValues
 
     Problem   problem;                             // The problem being solved
 
-    problem = new ProblemMinMakeSpan();
+    problem = new ProblemMinMakeSpan(input_file);
 
     problem.set_geneN(gn);
     problem.set_geneL(gl);

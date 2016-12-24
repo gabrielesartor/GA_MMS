@@ -20,42 +20,49 @@ public class testValues
   public static void main(String args[]) throws Exception
   {
   
-  //Changing probability of crossover
-    testSample(512,0.7,(1/512),args[0]);
-    //testSample(512,0.8,(1/512),args[0]);
-    //testSample(512,0.9,(1/512),args[0]);
-/*    
-    //Changing probability of mutation
-    testSample(512,0.7,0,args[0]);
-    testSample(512,0.7,0.01,args[0]);
-    testSample(512,0.7,0.02,args[0]);
-    testSample(512,0.7,0.03,args[0]);
-    testSample(512,0.7,0.04,args[0]);
-    testSample(512,0.7,0.05,args[0]);
-    testSample(512,0.7,0.06,args[0]);
-    testSample(512,0.7,0.07,args[0]);
-    testSample(512,0.7,0.08,args[0]);
-    testSample(512,0.7,0.09,args[0]);
-    testSample(512,0.7,0.1,args[0]);
-    
-    //Changing population
-    testSample(200,0.7,(1/512),args[0]);
-    testSample(300,0.7,(1/512),args[0]);
-    testSample(500,0.7,(1/512),args[0]);
-    testSample(600,0.7,(1/512),args[0]);
-    testSample(800,0.7,(1/512),args[0]);
-    testSample(1000,0.7,(1/512),args[0]);
-*/
+    if(args.length!=1) {
+      System.out.println("Please enter the name of the input_file.");
+      return;
+    }
+
+
+    //Changing probability of crossover, mutation and population size
+    double j = 1;
+
+    for(double pc=0.70; pc<0.905 ; pc += 0.1 )
+    {
+      for(int pm=0; pm<11 ; pm += 2)
+      {
+        for(int popsize=256; popsize<2049 ; popsize *= 2)
+        {
+          String file_name = "pmTest_"+popsize+"_"+pc+"_"+pm+".csv";
+          PrintWriter out = new PrintWriter(new FileWriter(file_name));
+          out.print("Iteration, Minimum MakeSpan\n");
+
+          for (int iteration=0; iteration<50; iteration++) {
+
+
+
+            double soluce = testSample(popsize,pc,(pm/512), args[0]);
+            //PRINT SOLUTION
+            out.print(iteration+","+soluce+"\n");
+
+
+            System.out.println(iteration+","+soluce);
+          }
+          out.flush();
+          out.close();
+        }
+      }
+    }
+
 
   }
-  
-  
-  public static void testSample(int popsize1, double pc1, double pm1, String name_file_test) throws Exception {
-    String file_name = "test/values_test_"+popsize1+"_"+pc1+"_"+pm1+".csv";
-    
-    PrintWriter out = new PrintWriter(new FileWriter(file_name));
-    out.print("Iteration, Minimum MakeSpan\n");
-  
+
+
+  public static double testSample(int popsize1, double pc1, double pm1, String input_file) throws Exception {
+
+
     // PARAMETERS MINMAKESPAN
     int numberOfMachines = 16;                        // Number of machines
     int    gn         = 512;                          // Gene number
@@ -68,7 +75,7 @@ public class testValues
 
     Problem   problem;                             // The problem being solved
 
-    problem = new ProblemMinMakeSpan();
+    problem = new ProblemMinMakeSpan(input_file);
 
     problem.set_geneN(gn);
     problem.set_geneL(gl);
@@ -79,12 +86,12 @@ public class testValues
     Algorithm ga;          // The ssGA being used
     ga = new Algorithm(problem, popsize, gn, gl, pc, pm, numberOfMachines);
 
-    for (int iteration=0; iteration<50; iteration++) {
+
       for (int step=0; step<MAX_ISTEPS; step++)
       {
         ga.go_one_step();
-        System.out.print(step); System.out.print("  ");
-        System.out.println(ga.get_bestf());
+        //System.out.print(step); System.out.print("  ");
+        //System.out.println(ga.get_bestf());
 
         if(     (problem.tf_known())                    &&
         (ga.get_solution()).get_fitness()>=problem.get_target_fitness()
@@ -95,16 +102,9 @@ public class testValues
           break;
         }
 
-      }
-
-      //PRINT SOLUTION
-      out.print(iteration+","+Math.abs((ga.get_solution()).get_fitness())+"\n");
-      
-
     }
-    out.flush();
-    out.close();
-      
+    return Math.abs((ga.get_solution()).get_fitness());
+
   }
 
 }

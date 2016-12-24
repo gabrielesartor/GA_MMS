@@ -1,7 +1,14 @@
 #Minimum Makespan Problem solver
 
+Implemented by 
+  Gabriele Sartor and Morgan Gautherot 
+
 This program aims to solve the Minimum Makespan problem.
 In order to do this you have to run the file Exe.java giving as input the name of the file containing data about the time of execution of each job for each machine.
+
+-----------Structure of the repository----------
+1. doc : contain the report related to the project
+2. src : folder containing java files and results of our test
 
 ---------------EXECUTION---------------
 

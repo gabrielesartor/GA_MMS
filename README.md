@@ -14,6 +14,7 @@ java Exe u_s_hihi_512_16.txt
 
 java Exe u_s_lohi_512_16.txt
 
+At the end of the execution it will display the values of the chromosome with the best fitness and its fitness.
 
 ---------------TEST RESULTS--------------
 

@@ -76,9 +76,10 @@ public class Exe
     }
 
     // Print the solution
+    System.out.println("\n\nBest solution:");
     for(int i=0;i<gn*gl;i++)
-      System.out.print((ga.get_solution()).get_allele(i));
-    System.out.println("\n"+(ga.get_solution()).get_fitness());
+      System.out.print((ga.get_solution()).get_allele(i)+":");
+    System.out.println("\nWith fitness : "+(ga.get_solution()).get_fitness());
   }
 
 }

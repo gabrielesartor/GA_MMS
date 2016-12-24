@@ -14,12 +14,16 @@ java Exe u_s_hihi_512_16.txt
 
 java Exe u_s_lohi_512_16.txt
 
+At the end of the execution it will display the values of the chromosome with the best fitness and its fitness.
 
 ---------------TEST RESULTS--------------
 
 To look at the results of the algorithm with different parameters, you can use the class testValues.java.
 This class is implemented to run 50 iteration of the algorithm for each combination of parameter, writing on a csv file the best result of each iteration.
 (It takes a lot of time...)
+
+To execute it, open the terminal in GA_MMS/src/ and run the command:
+java testValues data_file_name
 
 Example of execution
 

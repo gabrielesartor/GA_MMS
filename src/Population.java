@@ -7,16 +7,25 @@
 /** Assistant Cesar Diaz                      **/
 /***********************************************/
 
+/*
+Intelligent Systems - Problem Solving project
+Authors:  Gabriele Sartor
+          Morgan Gautherot 
+*/
+
+/*
+This class aims to represent a population of individuals in the Minimum Makespan problem.
+*/
+
 public class Population
 {
   // PRIVATE MEMORY
   private int       popsize;  // The number of individuals
   private Individual pop[];   // The vector of individuals
 
-  /* Number of machine */
-  private int M;
 
-  /* It is the number of our task */
+  private int M;              //Number of machines used
+
   private int chrom_length;   // The length of the chromosomes
 
   // STATISTICS
@@ -31,14 +40,14 @@ public class Population
 
   public Population(int ps, int chroml, int machinesNum)
   {
-    /* number of population */
-    popsize      = ps;
-    /* liste of our population */
-    pop          = new Individual[popsize];
-    /* number of task */
-    chrom_length = chroml;
-    /* number of machines */
-    M = machinesNum;
+
+    popsize      = ps;                        //Number of individuals of population
+
+    pop          = new Individual[popsize];   //Population
+
+    chrom_length = chroml;                    //Number of jobs
+    
+    M = machinesNum;                          //Number of machines
 
     /* Create a number "popsize" of random solution on "machinesNum" machines */
     for(int i=0;i<popsize;i++)  pop[i] = new Individual(chroml,machinesNum);
@@ -63,7 +72,9 @@ public class Population
     return worstp;
   }
 
-/* return the value of the individu at the index "index" if it exists */
+  /*
+  Return the value of the individual at the index "index" if it exists
+  */
   public Individual get_ith(int index)throws Exception
   {
     if ((index<popsize) && (index>=0))
@@ -72,7 +83,9 @@ public class Population
     throw new Exception("Index out of range when getting a copy of an individual");
   }
 
-/* Change the individu of index "index" */
+  /*
+   Change the individual of index "index" with "indiv"
+  */
   public void set_ith(int index, Individual indiv)  throws Exception
   {
     if ((index<popsize) && (index>=0))
@@ -84,27 +97,25 @@ public class Population
     compute_stats();
   }
 
-/* Can change de fitness of one individu it maybe uses after a crossover or a mutation */
+  /*
+   Change to the value "fitness" the fitness of the individual in position "index"
+  */
   public void set_fitness( int index, double fitness ) throws Exception
   {
     pop[index].set_fitness(fitness);
   }
 
-/* This method compute the stats about our population maybe we use that after an iteration to know
-if we have to continue one more iteration if we increase the solution */
+  /* 
+  This method compute the stats about our population (best and worst fitnesses)
+  */
   public void compute_stats()
   {
     double f, total;
 
-    // Initialize values (always needed!!!)
     total  = 0.0;
     worstf = pop[0].get_fitness();     worstp = 0;
     bestf  = pop[0].get_fitness();     bestp  = 0;
 
-    /*I think it is completely the opposite
-     *We have a better fitness when we have a lower number
-     *  TO CHANGE!  <----------------------------------------------------------- 
-    */
     for(int i=0;i<popsize;i++)
     {   f = pop[i].get_fitness();
     if(f<=worstf) {worstf = f; worstp = i;}
@@ -116,12 +127,14 @@ if we have to continue one more iteration if we increase the solution */
     avgf = total/(double)popsize;
   }
 
-public int    get_worstp() { return worstp; }
-public int    get_bestp()  { return bestp;  }
-public double get_worstf() { return worstf; }
-public double get_avgf()   { return avgf;   }
-public double get_bestf()  { return bestf;  }
-public double get_BESTF()  { return BESTF;  }
+
+  public int    get_worstp() { return worstp; }
+  public int    get_bestp()  { return bestp;  }
+  public double get_worstf() { return worstf; }
+  public double get_avgf()   { return avgf;   }
+  public double get_bestf()  { return bestf;  }
+  public double get_BESTF()  { return BESTF;  }
+
 
   public void print()
   {

@@ -7,20 +7,31 @@
 /** Assistant Cesar Diaz                      **/
 /***********************************************/
 
+/*
+Intelligent Systems - Problem Solving project
+Authors:  Gabriele Sartor
+          Morgan Gautherot 
+*/
+
 import java.util.Random;
 
+/*
+This abstract class aims to contain the most important parameters and methods useful for dealing with genetic algorithm.
+*/
 
-public abstract class Problem                    // Maximization task
+
+public abstract class Problem               
 {
-    /* don't really understand what is use for */
+
     protected int GL=1;               	// Gene lenth in binary
     protected int GN=1;               	// Gene number in one string
     protected int CL=GN*GL;           	// Chromosome length
     protected long fitness_counter;   	// Number of evaluations
     protected double target_fitness;  	// Target fitness value -MAXIMUM-
-    protected boolean tf_known;       	// Is the taret fitness known????
+    protected boolean tf_known;       	
     protected static Random r = new Random();	// Random uniform variable
 
+    //CONSTRUCTOR
     public Problem() {
         CL              = GN*GL;
         fitness_counter = 0;
@@ -28,6 +39,7 @@ public abstract class Problem                    // Maximization task
         target_fitness  = -999999.9;
     }
 
+    //SET and GET functions
     public int     get_geneL()           { return GL; }
     public int     get_geneN()           { return GN; }
     public void    set_geneL(int gl)     { GL = gl; CL=GN*GL; }
@@ -42,13 +54,15 @@ public abstract class Problem                    // Maximization task
     }
 
 
-    
+    /*
+    Increment steps of the algorithm computed and return the fitness of the individual Indiv
+    */
     public double evaluateStep(Individual Indiv) {
             fitness_counter++ ;
             return Evaluate(Indiv) ;
     }
 
-    /*Create new problem file and implement this method*/
+    /*Calculates the fitness of the individual Indiv (to implement in the class which extends this class)*/
     public abstract double Evaluate(Individual Indiv) ;
 }
 // END OF CLASS: Problem

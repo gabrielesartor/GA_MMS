@@ -21,6 +21,9 @@ To look at the results of the algorithm with different parameters, you can use t
 This class is implemented to run 50 iteration of the algorithm for each combination of parameter, writing on a csv file the best result of each iteration.
 (It takes a lot of time...)
 
+To execute it, open the terminal in GA_MMS/src/ and run the command:
+java testValues data_file_name
+
 Example of execution
 
 java testValues u_s_hihi_512_16.txt

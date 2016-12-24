@@ -16,7 +16,7 @@ Authors:  Gabriele Sartor
 import java.io.* ;
 
 /*
-This class aims to represent an individual in the Minimum Makespan problem.
+This class aims to represent an individual.
 */
 
 public class Individual implements Serializable

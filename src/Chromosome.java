@@ -7,19 +7,32 @@
 /** Assistant Cesar Diaz                      **/
 /***********************************************/ 
 
+
+/*
+Intelligent Systems - Problem Solving project
+Authors:  Gabriele Sartor
+          Morgan Gautherot 
+*/
+
 import java.util.Random;
 import java.io.* ;
 
+/*
+This class aims to represent the chromosome object in the Minimum Makespan problem.
+*/
 
 public class Chromosome implements Serializable
 {
   private int alleles[];		// Allele vector
-  private int  L;			// Length of the allele vector
-  private static Random r = new Random(); // Only the first time it is initialized
+  private int  L;			      // Length of the allele vector
+  private static Random r = new Random(); 
 
 
   // CONSTRUCTOR - FILL UP THE CONTENTS
-  /*The length is the number of jobs*/
+  /*
+  Creates a chromosome for a number "length" of jobs to be assigned to a number "machinesNum" of machines.
+  Assignments between jobs and machines are created randomly
+  */
   public Chromosome(int length, int machinesNum)
   {
     alleles = new int[length];

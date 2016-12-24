@@ -7,11 +7,21 @@
 /** Assistant Cesar Diaz                      **/
 /***********************************************/
 
-//To execute
-//java testValues data_file_name
-//
-//Example
-// java testValues u_c_hihi_512_16.txt
+/*
+Intelligent Systems - Problem Solving project
+Authors:  Gabriele Sartor
+          Morgan Gautherot 
+*/
+
+/*
+This class create files csv containing results useful for probabilistic analysis.
+This class is implemented to run 50 iteration of the algorithm for each combination of parameter, writing on a csv file the best result of each iteration.
+(It takes a lot of time...)
+
+Example of execution
+java testValues u_c_hihi_512_16.txt
+*/
+
 
 import java.io.*;
 
@@ -26,7 +36,7 @@ public class testValues
     }
 
 
-    //Changing probability of crossover, mutation and population size
+    //Execute test changing probability of crossover, mutation and population size
     double j = 1;
 
     for(double pc=0.70; pc<0.905 ; pc += 0.1 )
@@ -44,7 +54,7 @@ public class testValues
 
 
             double soluce = testSample(popsize,pc,(pm/512), args[0]);
-            //PRINT SOLUTION
+
             out.print(iteration+","+soluce+"\n");
 
 
@@ -67,13 +77,13 @@ public class testValues
     int numberOfMachines = 16;                        // Number of machines
     int    gn         = 512;                          // Gene number
     int    gl         = 1;                            // Gene length
-    int    popsize    = popsize1;                          // Population size
+    int    popsize    = popsize1;                     // Population size
     double pc         = pc1;                          // Crossover probability
-    double pm         = pm1; // Mutation probability
-    double tf         = 0.0 ;               // Target fitness being sought
+    double pm         = pm1;                          // Mutation probability
+    double tf         = 0.0 ;                         // Target fitness being sought
     long   MAX_ISTEPS = 50000;
 
-    Problem   problem;                             // The problem being solved
+    Problem   problem;                                // The problem being solved
 
     problem = new ProblemMinMakeSpan(input_file);
 
@@ -83,15 +93,14 @@ public class testValues
 
 
 
-    Algorithm ga;          // The ssGA being used
+    Algorithm ga;          
     ga = new Algorithm(problem, popsize, gn, gl, pc, pm, numberOfMachines);
 
 
       for (int step=0; step<MAX_ISTEPS; step++)
       {
         ga.go_one_step();
-        //System.out.print(step); System.out.print("  ");
-        //System.out.println(ga.get_bestf());
+
 
         if(     (problem.tf_known())                    &&
         (ga.get_solution()).get_fitness()>=problem.get_target_fitness()

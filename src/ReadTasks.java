@@ -1,10 +1,17 @@
 /*
-Class used to read tasks from a txt file
+Intelligent Systems - Problem Solving project
+Authors:  Gabriele Sartor
+          Morgan Gautherot 
 */
+
 
 import java.util.*;
 import java.io.*;
 import java.nio.file.*;
+
+/*
+Class used to read tasks from a txt file containing data for MMS problem
+*/
 
 public class ReadTasks {
   public static void main(String[]args) throws Exception {
@@ -12,6 +19,7 @@ public class ReadTasks {
     matrixFromFile("u_s_hihi_512_16.txt");
   }
   
+
   private static ArrayList<String> splitInLines(String input_file) throws Exception {
     ArrayList<String> lines = new ArrayList<String>();
     int i = 0;
@@ -23,6 +31,7 @@ public class ReadTasks {
     return lines;  
   }
   
+
   private static float[][] linesToMatrix(ArrayList<String> lines) {
     int lengthArray = lines.size();
     int machine = 0;
@@ -44,6 +53,10 @@ public class ReadTasks {
     return matrixTasks;
   }
   
+  /*
+  Given a txt file containing the data about the execution of each job for each machine, return it in matrix format.
+  In the matrix, rows represent jobs and columns are machines.
+  */
   public static float[][] matrixFromFile(String input_file) throws Exception {
     ArrayList<String> lines = splitInLines(input_file);
     return linesToMatrix(lines);

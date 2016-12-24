@@ -137,7 +137,7 @@ public class Algorithm
     aux_indiv.assign(p1);
 
     for(int i=0; i<chrom_length; i++)
-    if (r.nextDouble()<=pm)  
+    if (r.nextDouble()<=pm) { 
       aux_indiv.set_allele(i,r.nextInt(machinesNum));
     }
 
